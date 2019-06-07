@@ -103,16 +103,6 @@
               </property>
              </widget>
             </item>
-            <item row="1" column="2">
-             <widget class="QLineEdit" name="startY">
-              <property name="text">
-               <string>0</string>
-              </property>
-              <property name="placeholderText">
-               <string>y</string>
-              </property>
-             </widget>
-            </item>
             <item row="0" column="1" colspan="3">
              <widget class="QLineEdit" name="equationGradient">
               <property name="sizePolicy">
@@ -135,11 +125,24 @@
             </item>
             <item row="1" column="1">
              <widget class="QLineEdit" name="startX">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="text">
                <string>0</string>
               </property>
               <property name="placeholderText">
                <string>x</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QLineEdit" name="startY">
+              <property name="text">
+               <string>0</string>
+              </property>
+              <property name="placeholderText">
+               <string>y</string>
               </property>
              </widget>
             </item>

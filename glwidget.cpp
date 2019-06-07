@@ -73,8 +73,8 @@ void GLWidget::changeMode(GraphMode mode)
     m_mode = mode;
     // reset x, y, z rotation
     if (mode == GraphMode::CONTOUR_LINE) {
-        m_xRot = 45;
-        m_yRot = -45;
+        m_xRot = 90;
+        m_yRot = 0;
         m_zRot = 0;
         m_zoom = 7;
     }
@@ -369,11 +369,13 @@ void GLWidget::drawColorPanel()
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
+    if (m_mode == GraphMode::CONTOUR_LINE) return;
     m_lastPos = event->pos();
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
+    if (m_mode == GraphMode::CONTOUR_LINE) return;
     int dx = event->x() - m_lastPos.x();
     int dy = event->y() - m_lastPos.y();
 
