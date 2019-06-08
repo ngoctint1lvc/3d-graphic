@@ -510,7 +510,7 @@ public:
 #ifndef QT_NO_WHATSTHIS
         gradientTab->setWhatsThis(QString());
 #endif // QT_NO_WHATSTHIS
-        label->setText(QApplication::translate("MainWindow", "Enter equations", nullptr));
+        label->setText(QApplication::translate("MainWindow", "Enter graph equations z = f(x, y)", nullptr));
         equationGradient->setText(QApplication::translate("MainWindow", "x*x + y*cos(x)", nullptr));
         label_12->setText(QApplication::translate("MainWindow", "Enter range of x", nullptr));
         xMinGradient->setText(QApplication::translate("MainWindow", "-10", nullptr));
@@ -530,7 +530,7 @@ public:
         label_8->setText(QApplication::translate("MainWindow", "Zoom", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(gradientTab), QApplication::translate("MainWindow", "Gradient Descent", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "Enter equation and 3 points", nullptr));
-        label_10->setText(QApplication::translate("MainWindow", "Enter graph equations", nullptr));
+        label_10->setText(QApplication::translate("MainWindow", "Enter graph equations z = f(x, y)", nullptr));
         addEquation->setText(QApplication::translate("MainWindow", "Add equation", nullptr));
         popEquation->setText(QApplication::translate("MainWindow", "Pop equation", nullptr));
         xMinCutting->setText(QApplication::translate("MainWindow", "-10", nullptr));

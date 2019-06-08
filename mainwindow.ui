@@ -47,7 +47,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Enter equations</string>
+               <string>Enter graph equations z = f(x, y)</string>
               </property>
              </widget>
             </item>
@@ -328,7 +328,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>Enter graph equations</string>
+               <string>Enter graph equations z = f(x, y)</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

@@ -73,7 +73,6 @@ void MainWindow::on_button3D_clicked()
         for (int i = 0; i < expressionCuttingList.length(); i++) {
             ui->openglCutting->updateGraphExpression(i, expressionCuttingList[i]->text());
         }
-//        ui->openglCutting->updateGraphExpression(0, expressionCutting);
 
         ui->openglCutting->changeMode(GraphMode::GRAPHIC_3D);
         // note: call changeMode will update opengl view
@@ -97,12 +96,12 @@ void MainWindow::on_buttonContour_clicked()
 
 void MainWindow::on_gradientSlider_valueChanged(int value)
 {
-    ui->openglGradient->setZoom(ui->gradientSlider->value());
+    ui->openglGradient->setZoom(value);
 }
 
 void MainWindow::on_cuttingSlider_valueChanged(int value)
 {
-    ui->openglCutting->setZoom(ui->cuttingSlider->value());
+    ui->openglCutting->setZoom(value);
 }
 
 void MainWindow::on_addEquation_clicked()

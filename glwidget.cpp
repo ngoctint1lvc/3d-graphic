@@ -149,9 +149,10 @@ void GLWidget::drawGraph(Graph* graph) {
                                 glColor3f(1, 0, 0);
                         }
                         else {
-                            QVector3D color;
-                            getColor(graph->formula(x1, z1), &color);
-                            glColor3f(color.x(), color.y(), color.z());
+//                            QVector3D color;
+//                            getColor(graph->formula(x1, z1), &color);
+//                            glColor3f(color.x(), color.y(), color.z());
+                            glColor3f(0, 1, 0);
                         }
 
                         if (m_mode == GraphMode::GRAPHIC_3D) {

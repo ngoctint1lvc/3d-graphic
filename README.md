@@ -2,7 +2,14 @@
 
 This is a 3D function visualizer tool for educational purpose (computer graphic course)
 
-![Preview image](images/3d-graphic-preview.png)
+## Gradient Descent
+Allow you visualize mathematical function and draw a gradient descent line on it.
+
+![Preview image](images/gradient-descent-preview.png)
+
+## Cutting plane
+Allow you visualize multiple mathematical function at the same time and draw a cutting plane through all graphs.
+![Preview image](images/cutting-plane-preview.png)
 
 ## Getting Started
 
