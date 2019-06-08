@@ -63,7 +63,9 @@ public:
     QLabel *label_6;
     QLabel *label_10;
     QVBoxLayout *equationListLayout;
+    QGridLayout *gridLayout_6;
     QPushButton *addEquation;
+    QPushButton *popEquation;
     QGridLayout *gridLayout;
     QLineEdit *xMinCutting;
     QLabel *label_7;
@@ -313,10 +315,21 @@ public:
 
         verticalLayout_7->addLayout(equationListLayout);
 
+        gridLayout_6 = new QGridLayout();
+        gridLayout_6->setSpacing(6);
+        gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
         addEquation = new QPushButton(cuttingTab);
         addEquation->setObjectName(QStringLiteral("addEquation"));
 
-        verticalLayout_7->addWidget(addEquation);
+        gridLayout_6->addWidget(addEquation, 0, 0, 1, 1);
+
+        popEquation = new QPushButton(cuttingTab);
+        popEquation->setObjectName(QStringLiteral("popEquation"));
+
+        gridLayout_6->addWidget(popEquation, 0, 1, 1, 1);
+
+
+        verticalLayout_7->addLayout(gridLayout_6);
 
         gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
@@ -571,6 +584,7 @@ public:
         label_6->setText(QApplication::translate("MainWindow", "Enter equation and 3 points", nullptr));
         label_10->setText(QApplication::translate("MainWindow", "Equations", nullptr));
         addEquation->setText(QApplication::translate("MainWindow", "Add equation", nullptr));
+        popEquation->setText(QApplication::translate("MainWindow", "Pop equation", nullptr));
         xMinCutting->setText(QApplication::translate("MainWindow", "-10", nullptr));
         xMinCutting->setPlaceholderText(QApplication::translate("MainWindow", "x min", nullptr));
         label_7->setText(QApplication::translate("MainWindow", "range x", nullptr));

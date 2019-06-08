@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->openglGradient->setGraphType(GraphType::GRADIENT_DESCENT);
     ui->openglCutting->setGraphType(GraphType::CUTTING_PLANE);
 
-    ui->openglGradient->addGraph("x*x + y*y");
+    ui->openglGradient->addGraph(ui->equationGradient->text());
 
     // Add new equation line text to layout
     QLineEdit* newEquation = new QLineEdit();
@@ -78,6 +78,7 @@ void MainWindow::on_button3D_clicked()
         ui->openglCutting->setPlane(point1, point2, point3);
 
         // this shit not work???
+        std::cout << "expressionCuttingList.length = " << expressionCuttingList.length() << std::endl;
         for (int i = 0; i < expressionCuttingList.length(); i++) {
             ui->openglCutting->updateGraphExpression(i, expressionCuttingList[i]->text());
         }
@@ -123,4 +124,13 @@ void MainWindow::on_addEquation_clicked()
     ui->equationListLayout->addWidget(newEquation);
     expressionCuttingList.append(newEquation);
     ui->openglCutting->addGraph(newEquation->text());
+}
+
+void MainWindow::on_popEquation_clicked()
+{
+    QLineEdit* lastEquation = expressionCuttingList[expressionCuttingList.length() - 1];
+    delete lastEquation;
+    expressionCuttingList.pop_back();
+    ui->equationListLayout->removeWidget(lastEquation);
+    ui->openglCutting->popGraph();
 }

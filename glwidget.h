@@ -44,6 +44,7 @@ public:
     void setPlane(QVector3D p1, QVector3D p2, QVector3D p3);
     void addGraph(QString exp);
     void updateGraphExpression(int index, QString exp);
+    void popGraph();
     void setRange(float xMin, float xMax, float yMin, float yMax);
 
 public slots:

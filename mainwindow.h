@@ -33,6 +33,8 @@ private slots:
 
     void on_addEquation_clicked();
 
+    void on_popEquation_clicked();
+
 private:
     void updateInput();
     Ui::MainWindow *ui;

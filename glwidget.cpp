@@ -198,6 +198,15 @@ void GLWidget::updateGraphExpression(int index, QString exp)
     }
 }
 
+void GLWidget::popGraph()
+{
+    std::cout << "popGraph is called" << std::endl;
+    if (graphList.length() > 0) {
+        delete graphList[graphList.length() - 1];
+        graphList.pop_back();
+    }
+}
+
 void GLWidget::setRange(float xMin, float xMax, float yMin, float yMax)
 {
     x_min = xMin;

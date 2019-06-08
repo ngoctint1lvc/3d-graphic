@@ -343,11 +343,22 @@
              </layout>
             </item>
             <item>
-             <widget class="QPushButton" name="addEquation">
-              <property name="text">
-               <string>Add equation</string>
-              </property>
-             </widget>
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="0" column="0">
+               <widget class="QPushButton" name="addEquation">
+                <property name="text">
+                 <string>Add equation</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="popEquation">
+                <property name="text">
+                 <string>Pop equation</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
              <layout class="QGridLayout" name="gridLayout">
