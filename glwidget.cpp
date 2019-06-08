@@ -17,6 +17,11 @@ float Graph::formula(float x, float y)
     return expression.eval(x, y);
 }
 
+void Graph::setExpression(QString exp)
+{
+    expression.setFormula(exp);
+}
+
 //void GLWidget::setExpression(QString exp)
 //{
 //    m_expression.setFormula(exp);
@@ -113,28 +118,32 @@ void GLWidget::drawGraph(Graph* graph) {
     }
 
     float bigStep = m_zoom/20.0; // 0.5
-    float step = qMax<float>(0.01, bigStep/50);
-    float xMax = m_zoom/2.0;
-    float zMax = m_zoom/2.0;
+    float step = qMax<float>(0.01, bigStep/40.0);
+    float xMax = m_zoom*0.6;
+    float zMax = m_zoom*0.6;
     for (float x = -xMax; x <= xMax; x += bigStep){
         for (float z = -zMax; z <= zMax; z += bigStep){
             // draw mesh
-            glLineWidth(1);
-            glBegin(GL_LINE_STRIP);
-                glColor3f(0, 0, 0);
-                for (float temp = z; temp <= z + bigStep; temp += step){
-                    if (m_mode == GraphMode::GRAPHIC_3D)
+            glLineWidth(1.3);
+            if (m_mode == GraphMode::GRAPHIC_3D) {
+                glBegin(GL_LINE_STRIP);
+                    glColor3f(0, 0, 0);
+                    for (float temp = z; temp <= z + bigStep; temp += step){
                         glVertex3f(x, graph->formula(x, temp), temp);
-                    else
-                        glVertex3f(x, 0, temp);
-                }
-                for (float temp = x; temp <= x + bigStep; temp += step){
-                    if (m_mode == GraphMode::GRAPHIC_3D)
+                    }
+                    for (float temp = x; temp <= x + bigStep; temp += step){
                         glVertex3f(temp, graph->formula(temp, z + bigStep), z + bigStep);
-                    else
-                        glVertex3f(temp, 0, z + bigStep);
-                }
-            glEnd();
+                    }
+                glEnd();
+            }
+            else {
+                glBegin(GL_LINE_STRIP);
+                    glColor3f(0, 0, 0);
+                    glVertex3f(x, 0.1, z);
+                    glVertex3f(x, 0.1, z + bigStep);
+                    glVertex3f(x + bigStep, 0.1, z + bigStep);
+                glEnd();
+            }
 
             // draw polygon
             glBegin(GL_QUADS);
@@ -147,7 +156,9 @@ void GLWidget::drawGraph(Graph* graph) {
                                 glColor3f(1, 0, 0);
                         }
                         else {
-                            glColor3f(0, 1, 0);
+                            QVector3D color;
+                            getColor(graph->formula(x1, z1), &color);
+                            glColor3f(color.x(), color.y(), color.z());
                         }
 
                         if (m_mode == GraphMode::GRAPHIC_3D) {
@@ -172,19 +183,18 @@ void GLWidget::drawGraph(Graph* graph) {
     }
 }
 
-void GLWidget::addGraph(Graph *graph)
+void GLWidget::addGraph(QString exp)
 {
-    graphList.append(graph);
+    graphList.append(new Graph(exp));
 }
 
-void GLWidget::updateGraph(int index, Graph *graph)
+void GLWidget::updateGraphExpression(int index, QString exp)
 {
     if (index > graphList.length())
         return;
     if (graphList[index] != nullptr) {
-        delete graphList[index];
+        graphList[index]->setExpression(exp);
     }
-    graphList[index] = graph;
 }
 
 void GLWidget::paintGL()
@@ -197,8 +207,12 @@ void GLWidget::paintGL()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-//    gluLookAt(m_zoom/1.5, m_xRot, m_zoom/1.5, 0, 0, 0, 0, 1, 0);
-    glViewport(0, 0, this->width(), this->height());
+    if (m_mode == GraphMode::CONTOUR_LINE)
+        glViewport(0, 0, this->width() - 30, this->height());
+    else {
+        glViewport(0, 0, this->width(), this->height());
+        glTranslatef(0, -m_zoom*0.3, 0);
+    }
 
     glRotatef(m_xRot, 1.0, 0.0, 0.0);
     glRotatef(m_yRot, 0.0, 1.0, 0.0);
@@ -261,6 +275,11 @@ void GLWidget::drawGradientDescent(Graph* graph)
     QVector2D gradient;
     int step = 5000;
 
+    if (m_mode == GraphMode::GRAPHIC_3D)
+        glLineWidth(3);
+    else
+        glLineWidth(1);
+
     while(step-- > 0) {
         // calculate gradient vector
         gradient.setX(graph->expression.derivativeX(x, y));
@@ -275,7 +294,6 @@ void GLWidget::drawGradientDescent(Graph* graph)
         next.setY(y - delta * gradient.y());
 
         // draw line
-        glLineWidth(3);
         glBegin(GL_LINES);
             glColor3f(1, 0, 0);
             if (m_mode == GraphMode::GRAPHIC_3D) {
@@ -283,8 +301,8 @@ void GLWidget::drawGradientDescent(Graph* graph)
                 glVertex3f(next.x(), graph->formula(next.x(), next.y()), next.y());
             }
             else {
-                glVertex3f(x, 0, y);
-                glVertex3f(next.x(), 0, next.y());
+                glVertex3f(x, 0.2, y);
+                glVertex3f(next.x(), 0.2, next.y());
             }
         glEnd();
 
@@ -296,12 +314,15 @@ void GLWidget::drawGradientDescent(Graph* graph)
 
 void GLWidget::resizeGL(int width, int height)
 {
-//    glViewport(0, 0, this->width(), this->height());
+    if (m_mode == GraphMode::CONTOUR_LINE)
+        glViewport(0, 0, width - 30, height);
+    else
+        glViewport(0, 0, width, height);
 
-//    glMatrixMode(GL_PROJECTION);
-//    glLoadIdentity();
-//    glOrtho(-m_zoom, m_zoom, -m_zoom, m_zoom, -m_zoom, m_zoom);
-//    glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-m_zoom, m_zoom, -m_zoom, m_zoom, -m_zoom, m_zoom);
+    glMatrixMode(GL_MODELVIEW);
     update();
 }
 
@@ -325,19 +346,19 @@ void GLWidget::getColor(float height, QVector3D* color)
 
 void GLWidget::drawCoordinates()
 {
-    glLineWidth(1.5);
+    glLineWidth(1.8);
     glBegin(GL_LINES);
         glColor3f(1, 0, 0);
         glVertex3f(0, 0, 0);
-        glVertex3f(100, 0, 0);
+        glVertex3f(m_zoom*0.8, 0, 0);
 
-        glColor3f(0, 1, 0);
+        glColor3f(1, 1, 0);
         glVertex3f(0, 0, 0);
-        glVertex3f(0, 100, 0);
+        glVertex3f(0, m_zoom*0.8, 0);
 
         glColor3f(0, 0, 1);
         glVertex3f(0, 0, 0);
-        glVertex3f(0, 0, 100);
+        glVertex3f(0, 0, m_zoom*0.8);
     glEnd();
 }
 
@@ -369,13 +390,13 @@ void GLWidget::drawColorPanel()
 
 void GLWidget::mousePressEvent(QMouseEvent *event)
 {
-    if (m_mode == GraphMode::CONTOUR_LINE) return;
+//    if (m_mode == GraphMode::CONTOUR_LINE) return;
     m_lastPos = event->pos();
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    if (m_mode == GraphMode::CONTOUR_LINE) return;
+//    if (m_mode == GraphMode::CONTOUR_LINE) return;
     int dx = event->x() - m_lastPos.x();
     int dy = event->y() - m_lastPos.y();
 

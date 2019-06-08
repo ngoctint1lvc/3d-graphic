@@ -6,6 +6,7 @@
 #include <QVector2D>
 #include <QVector3D>
 #include "glwidget.h"
+#include <vector>
 
 namespace Ui {
 class MainWindow;
@@ -30,13 +31,16 @@ private slots:
 
     void on_cuttingSlider_valueChanged(int value);
 
+    void on_addEquation_clicked();
+
 private:
     void updateInput();
     Ui::MainWindow *ui;
     GLWidget* glWidget;
     QString expressionGradient;
     QVector2D start; // starting point for gradient
-    QString expressionCutting1, expressionCutting2;
+    QString expressionCutting;
+    QVector<QString>expressionCuttingList;
     QVector3D point1, point2, point3;  // 3 points of cutting plane
 };
 

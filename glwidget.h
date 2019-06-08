@@ -42,8 +42,8 @@ public:
     void setGraphType(GraphType type) {m_graphType = type; update();}
     void setStartingPoint(QVector2D start);
     void setPlane(QVector3D p1, QVector3D p2, QVector3D p3);
-    void addGraph(Graph*);
-    void updateGraph(int index, Graph* graph);
+    void addGraph(QString exp);
+    void updateGraphExpression(int index, QString exp);
 
 public slots:
     void cleanup();
