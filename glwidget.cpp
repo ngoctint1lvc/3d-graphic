@@ -295,7 +295,7 @@ void GLWidget::drawGradientDescent(Graph* graph)
     if (m_mode == GraphMode::GRAPHIC_3D)
         glLineWidth(qMax<float>(20/m_zoom, 3));
     else
-        glLineWidth(1);
+        glLineWidth(2);
 
     while(step-- > 0) {
         // calculate gradient vector

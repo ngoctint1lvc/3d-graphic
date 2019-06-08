@@ -3,9 +3,12 @@
 This is a 3D function visualizer tool for educational purpose (computer graphic course)
 
 ## Gradient Descent
-Allow you visualize mathematical function and draw a gradient descent line on it.
+3D graph mode allow you to visualize mathematical function and draw a gradient descent line on it.
 
 ![Preview image](images/gradient-descent-preview.png)
+
+Countour line mode allow you to see graph and gradient descent line in 2d contour mode
+![Preview image](images/gradient-contour-preview.png)
 
 ## Cutting plane
 Allow you visualize multiple mathematical function at the same time and draw a cutting plane through all graphs.
