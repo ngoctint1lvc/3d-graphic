@@ -10,12 +10,18 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->openglGradient->setGraphType(GraphType::GRADIENT_DESCENT);
     ui->openglCutting->setGraphType(GraphType::CUTTING_PLANE);
+
     ui->openglGradient->addGraph("x*x + y*y");
-    QList<QLineEdit*> lst = ui->equationListLayout->findChildren<QLineEdit*>();
-    for (int i = 0; i < lst.length(); i++) {
-        expressionCuttingList.append(lst[i]->text());
-        ui->openglCutting->addGraph(lst[i]->text());
-    }
+
+    // Add new equation line text to layout
+    QLineEdit* newEquation = new QLineEdit();
+    QSizePolicy policy;
+    policy.setHorizontalPolicy(QSizePolicy::Minimum);
+    newEquation->setSizePolicy(policy);
+    newEquation->setText("x*x + y*y");
+    ui->equationListLayout->addWidget(newEquation);
+    expressionCuttingList.append(newEquation);
+    ui->openglCutting->addGraph(newEquation->text());
 }
 
 MainWindow::~MainWindow()
@@ -30,8 +36,6 @@ void MainWindow::updateInput() {
     start.setY(ui->startY->text().toFloat());
 
     // cutting plane
-    expressionCutting = ui->equationCutting->text();
-
     point1.setX(ui->p1_x->text().toFloat());
     point1.setY(ui->p1_y->text().toFloat());
     point1.setZ(ui->p1_z->text().toFloat());
@@ -74,11 +78,8 @@ void MainWindow::on_button3D_clicked()
         ui->openglCutting->setPlane(point1, point2, point3);
 
         // this shit not work???
-        const QList<QLineEdit*> lst = ui->equationListLayout->findChildren<QLineEdit*>();
-        std::cout << lst.length() << std::endl;
-        for (int i = 0; i < lst.length(); i++) {
-            std::cout << lst[i]->text().toStdString() << std::endl;
-            ui->openglCutting->updateGraphExpression(i, lst[i]->text());
+        for (int i = 0; i < expressionCuttingList.length(); i++) {
+            ui->openglCutting->updateGraphExpression(i, expressionCuttingList[i]->text());
         }
 //        ui->openglCutting->updateGraphExpression(0, expressionCutting);
 
@@ -118,7 +119,8 @@ void MainWindow::on_addEquation_clicked()
     QSizePolicy policy;
     policy.setHorizontalPolicy(QSizePolicy::Minimum);
     newEquation->setSizePolicy(policy);
+    newEquation->setText("x*x + y*y");
     ui->equationListLayout->addWidget(newEquation);
-    ui->openglCutting->addGraph("");
-    expressionCuttingList.append("");
+    expressionCuttingList.append(newEquation);
+    ui->openglCutting->addGraph(newEquation->text());
 }

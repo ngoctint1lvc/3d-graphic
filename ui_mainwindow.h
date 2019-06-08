@@ -63,7 +63,6 @@ public:
     QLabel *label_6;
     QLabel *label_10;
     QVBoxLayout *equationListLayout;
-    QLineEdit *equationCutting;
     QPushButton *addEquation;
     QGridLayout *gridLayout;
     QLineEdit *xMinCutting;
@@ -311,15 +310,6 @@ public:
         equationListLayout->setSpacing(6);
         equationListLayout->setObjectName(QStringLiteral("equationListLayout"));
         equationListLayout->setSizeConstraint(QLayout::SetMinimumSize);
-        equationCutting = new QLineEdit(cuttingTab);
-        equationCutting->setObjectName(QStringLiteral("equationCutting"));
-        equationCutting->setEnabled(true);
-        sizePolicy1.setHeightForWidth(equationCutting->sizePolicy().hasHeightForWidth());
-        equationCutting->setSizePolicy(sizePolicy1);
-        equationCutting->setContextMenuPolicy(Qt::DefaultContextMenu);
-
-        equationListLayout->addWidget(equationCutting);
-
 
         verticalLayout_7->addLayout(equationListLayout);
 
@@ -547,7 +537,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -580,7 +570,6 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(gradientTab), QApplication::translate("MainWindow", "Gradient Descent", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "Enter equation and 3 points", nullptr));
         label_10->setText(QApplication::translate("MainWindow", "Equations", nullptr));
-        equationCutting->setText(QApplication::translate("MainWindow", "x*x + y*y", nullptr));
         addEquation->setText(QApplication::translate("MainWindow", "Add equation", nullptr));
         xMinCutting->setText(QApplication::translate("MainWindow", "-10", nullptr));
         xMinCutting->setPlaceholderText(QApplication::translate("MainWindow", "x min", nullptr));

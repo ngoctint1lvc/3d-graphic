@@ -6,7 +6,7 @@
 #include <QVector2D>
 #include <QVector3D>
 #include "glwidget.h"
-#include <vector>
+#include <QLineEdit>
 
 namespace Ui {
 class MainWindow;
@@ -39,8 +39,7 @@ private:
     GLWidget* glWidget;
     QString expressionGradient;
     QVector2D start; // starting point for gradient
-    QString expressionCutting;
-    QVector<QString>expressionCuttingList;
+    QVector<QLineEdit*>expressionCuttingList;
     QVector3D point1, point2, point3;  // 3 points of cutting plane
 };
 
