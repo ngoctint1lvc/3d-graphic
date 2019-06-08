@@ -50,6 +50,7 @@ GLWidget::GLWidget(QWidget *parent)
 
     // init plane
     plane.resize(3);
+    setRange(-10, 10, -10, 10);
 }
 
 GLWidget::~GLWidget()
@@ -117,12 +118,12 @@ void GLWidget::drawGraph(Graph* graph) {
         d = -a*plane[1].x() - b*plane[1].y() - c*plane[1].z();
     }
 
-    float bigStep = m_zoom/20.0; // 0.5
-    float step = qMax<float>(0.01, bigStep/40.0);
-    float xMax = m_zoom*0.6;
-    float zMax = m_zoom*0.6;
-    for (float x = -xMax; x <= xMax; x += bigStep){
-        for (float z = -zMax; z <= zMax; z += bigStep){
+    float xMax = x_max, xMin = x_min;
+    float zMax = y_max, zMin = y_min;
+    float bigStep = qMax<float>(qMin<float>((xMax - xMin)/20.0, (zMax - zMin)/20.0), 0.5);
+    float step = qMax<float>(0.01, bigStep/10.0);
+    for (float x = xMin; x <= xMax; x += bigStep){
+        for (float z = zMin; z <= zMax; z += bigStep){
             // draw mesh
             glLineWidth(1.3);
             if (m_mode == GraphMode::GRAPHIC_3D) {
@@ -197,6 +198,14 @@ void GLWidget::updateGraphExpression(int index, QString exp)
     }
 }
 
+void GLWidget::setRange(float xMin, float xMax, float yMin, float yMax)
+{
+    x_min = xMin;
+    x_max = xMax;
+    y_min = yMin;
+    y_max = yMax;
+}
+
 void GLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -207,15 +216,15 @@ void GLWidget::paintGL()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-    if (m_mode == GraphMode::CONTOUR_LINE)
-        glViewport(0, 0, this->width() - 30, this->height());
-    else {
-        glViewport(0, 0, this->width(), this->height());
-        glTranslatef(0, -m_zoom*0.3, 0);
-    }
-
     glRotatef(m_xRot, 1.0, 0.0, 0.0);
     glRotatef(m_yRot, 0.0, 1.0, 0.0);
+    glTranslatef(-(x_max + x_min)/2.0, 0, -(y_max + y_min)/2.0);
+
+    if (m_mode == GraphMode::CONTOUR_LINE)
+        glViewport(10, 10, this->width() - 50, this->height() - 20);
+    else {
+        glViewport(0, 0, this->width(), this->height());
+    }
 
     // draw 3d graph
     for (int i = 0; i < graphList.length(); i++) {
@@ -276,7 +285,7 @@ void GLWidget::drawGradientDescent(Graph* graph)
     int step = 5000;
 
     if (m_mode == GraphMode::GRAPHIC_3D)
-        glLineWidth(3);
+        glLineWidth(qMax<float>(20/m_zoom, 3));
     else
         glLineWidth(1);
 
@@ -292,6 +301,10 @@ void GLWidget::drawGradientDescent(Graph* graph)
         double delta = 0.2;
         next.setX(x - delta * gradient.x());
         next.setY(y - delta * gradient.y());
+
+        // exit if this point is out of range
+        if (x < x_min || x > x_max || y < y_min || y > y_max)
+            break;
 
         // draw line
         glBegin(GL_LINES);
@@ -350,15 +363,15 @@ void GLWidget::drawCoordinates()
     glBegin(GL_LINES);
         glColor3f(1, 0, 0);
         glVertex3f(0, 0, 0);
-        glVertex3f(m_zoom*0.8, 0, 0);
+        glVertex3f(m_zoom, 0, 0);
 
         glColor3f(1, 1, 0);
         glVertex3f(0, 0, 0);
-        glVertex3f(0, m_zoom*0.8, 0);
+        glVertex3f(0, m_zoom, 0);
 
         glColor3f(0, 0, 1);
         glVertex3f(0, 0, 0);
-        glVertex3f(0, 0, m_zoom*0.8);
+        glVertex3f(0, 0, m_zoom);
     glEnd();
 }
 

@@ -43,6 +43,18 @@ void MainWindow::updateInput() {
     point3.setX(ui->p3_x->text().toFloat());
     point3.setY(ui->p3_y->text().toFloat());
     point3.setZ(ui->p3_z->text().toFloat());
+
+    float xMin = ui->xMinGradient->text().toFloat();
+    float xMax = ui->xMaxGradient->text().toFloat();
+    float yMin = ui->yMinGradient->text().toFloat();
+    float yMax = ui->yMaxGradient->text().toFloat();
+    ui->openglGradient->setRange(xMin, xMax, yMin, yMax);
+
+    xMin = ui->xMinCutting->text().toFloat();
+    xMax = ui->xMaxCutting->text().toFloat();
+    yMin = ui->yMinCutting->text().toFloat();
+    yMax = ui->yMaxCutting->text().toFloat();
+    ui->openglCutting->setRange(xMin, xMax, yMin, yMax);
 }
 
 void MainWindow::on_button3D_clicked()
@@ -61,6 +73,7 @@ void MainWindow::on_button3D_clicked()
         ui->statusBar->showMessage("cutting plane tab active", 1000);
         ui->openglCutting->setPlane(point1, point2, point3);
 
+        // this shit not work???
         const QList<QLineEdit*> lst = ui->equationListLayout->findChildren<QLineEdit*>();
         std::cout << lst.length() << std::endl;
         for (int i = 0; i < lst.length(); i++) {

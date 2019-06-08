@@ -39,7 +39,16 @@ public:
     QVBoxLayout *verticalLayout_2;
     QLabel *label;
     QLineEdit *equationGradient;
+    QLabel *label_12;
+    QGridLayout *gridLayout_3;
+    QLineEdit *xMinGradient;
+    QLineEdit *xMaxGradient;
+    QLabel *label_13;
+    QGridLayout *gridLayout_4;
+    QLineEdit *yMinGradient;
+    QLineEdit *yMaxGradient;
     QLabel *label_2;
+    QGridLayout *gridLayout_5;
     QLineEdit *startX;
     QLineEdit *startY;
     QSpacerItem *verticalSpacer;
@@ -93,7 +102,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(758, 601);
+        MainWindow->resize(758, 652);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout = new QVBoxLayout(centralWidget);
@@ -132,6 +141,59 @@ public:
 
         verticalLayout_2->addWidget(equationGradient);
 
+        label_12 = new QLabel(gradientTab);
+        label_12->setObjectName(QStringLiteral("label_12"));
+
+        verticalLayout_2->addWidget(label_12);
+
+        gridLayout_3 = new QGridLayout();
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        xMinGradient = new QLineEdit(gradientTab);
+        xMinGradient->setObjectName(QStringLiteral("xMinGradient"));
+        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(xMinGradient->sizePolicy().hasHeightForWidth());
+        xMinGradient->setSizePolicy(sizePolicy1);
+
+        gridLayout_3->addWidget(xMinGradient, 0, 0, 1, 1);
+
+        xMaxGradient = new QLineEdit(gradientTab);
+        xMaxGradient->setObjectName(QStringLiteral("xMaxGradient"));
+        sizePolicy1.setHeightForWidth(xMaxGradient->sizePolicy().hasHeightForWidth());
+        xMaxGradient->setSizePolicy(sizePolicy1);
+
+        gridLayout_3->addWidget(xMaxGradient, 0, 1, 1, 1);
+
+
+        verticalLayout_2->addLayout(gridLayout_3);
+
+        label_13 = new QLabel(gradientTab);
+        label_13->setObjectName(QStringLiteral("label_13"));
+
+        verticalLayout_2->addWidget(label_13);
+
+        gridLayout_4 = new QGridLayout();
+        gridLayout_4->setSpacing(6);
+        gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
+        yMinGradient = new QLineEdit(gradientTab);
+        yMinGradient->setObjectName(QStringLiteral("yMinGradient"));
+        sizePolicy1.setHeightForWidth(yMinGradient->sizePolicy().hasHeightForWidth());
+        yMinGradient->setSizePolicy(sizePolicy1);
+
+        gridLayout_4->addWidget(yMinGradient, 0, 0, 1, 1);
+
+        yMaxGradient = new QLineEdit(gradientTab);
+        yMaxGradient->setObjectName(QStringLiteral("yMaxGradient"));
+        sizePolicy1.setHeightForWidth(yMaxGradient->sizePolicy().hasHeightForWidth());
+        yMaxGradient->setSizePolicy(sizePolicy1);
+
+        gridLayout_4->addWidget(yMaxGradient, 0, 1, 1, 1);
+
+
+        verticalLayout_2->addLayout(gridLayout_4);
+
         label_2 = new QLabel(gradientTab);
         label_2->setObjectName(QStringLiteral("label_2"));
         sizePolicy.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
@@ -140,20 +202,26 @@ public:
 
         verticalLayout_2->addWidget(label_2);
 
+        gridLayout_5 = new QGridLayout();
+        gridLayout_5->setSpacing(6);
+        gridLayout_5->setObjectName(QStringLiteral("gridLayout_5"));
         startX = new QLineEdit(gradientTab);
         startX->setObjectName(QStringLiteral("startX"));
         startX->setEnabled(true);
-        sizePolicy.setHeightForWidth(startX->sizePolicy().hasHeightForWidth());
-        startX->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(startX->sizePolicy().hasHeightForWidth());
+        startX->setSizePolicy(sizePolicy1);
 
-        verticalLayout_2->addWidget(startX);
+        gridLayout_5->addWidget(startX, 0, 0, 1, 1);
 
         startY = new QLineEdit(gradientTab);
         startY->setObjectName(QStringLiteral("startY"));
-        sizePolicy.setHeightForWidth(startY->sizePolicy().hasHeightForWidth());
-        startY->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(startY->sizePolicy().hasHeightForWidth());
+        startY->setSizePolicy(sizePolicy1);
 
-        verticalLayout_2->addWidget(startY);
+        gridLayout_5->addWidget(startY, 0, 1, 1, 1);
+
+
+        verticalLayout_2->addLayout(gridLayout_5);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -164,11 +232,11 @@ public:
 
         openglGradient = new GLWidget(gradientTab);
         openglGradient->setObjectName(QStringLiteral("openglGradient"));
-        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(openglGradient->sizePolicy().hasHeightForWidth());
-        openglGradient->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(openglGradient->sizePolicy().hasHeightForWidth());
+        openglGradient->setSizePolicy(sizePolicy2);
 
         horizontalLayout_3->addWidget(openglGradient);
 
@@ -184,11 +252,11 @@ public:
 
         gradientSlider = new QSlider(gradientTab);
         gradientSlider->setObjectName(QStringLiteral("gradientSlider"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Expanding);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(gradientSlider->sizePolicy().hasHeightForWidth());
-        gradientSlider->setSizePolicy(sizePolicy2);
+        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Expanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(gradientSlider->sizePolicy().hasHeightForWidth());
+        gradientSlider->setSizePolicy(sizePolicy3);
         gradientSlider->setBaseSize(QSize(0, 0));
         gradientSlider->setMinimum(1);
         gradientSlider->setMaximum(100);
@@ -208,11 +276,11 @@ public:
         tabWidget->addTab(gradientTab, QString());
         cuttingTab = new QWidget();
         cuttingTab->setObjectName(QStringLiteral("cuttingTab"));
-        QSizePolicy sizePolicy3(QSizePolicy::Minimum, QSizePolicy::Preferred);
-        sizePolicy3.setHorizontalStretch(0);
-        sizePolicy3.setVerticalStretch(0);
-        sizePolicy3.setHeightForWidth(cuttingTab->sizePolicy().hasHeightForWidth());
-        cuttingTab->setSizePolicy(sizePolicy3);
+        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(cuttingTab->sizePolicy().hasHeightForWidth());
+        cuttingTab->setSizePolicy(sizePolicy4);
         verticalLayout_5 = new QVBoxLayout(cuttingTab);
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -246,11 +314,8 @@ public:
         equationCutting = new QLineEdit(cuttingTab);
         equationCutting->setObjectName(QStringLiteral("equationCutting"));
         equationCutting->setEnabled(true);
-        QSizePolicy sizePolicy4(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy4.setHorizontalStretch(0);
-        sizePolicy4.setVerticalStretch(0);
-        sizePolicy4.setHeightForWidth(equationCutting->sizePolicy().hasHeightForWidth());
-        equationCutting->setSizePolicy(sizePolicy4);
+        sizePolicy1.setHeightForWidth(equationCutting->sizePolicy().hasHeightForWidth());
+        equationCutting->setSizePolicy(sizePolicy1);
         equationCutting->setContextMenuPolicy(Qt::DefaultContextMenu);
 
         equationListLayout->addWidget(equationCutting);
@@ -268,8 +333,8 @@ public:
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         xMinCutting = new QLineEdit(cuttingTab);
         xMinCutting->setObjectName(QStringLiteral("xMinCutting"));
-        sizePolicy4.setHeightForWidth(xMinCutting->sizePolicy().hasHeightForWidth());
-        xMinCutting->setSizePolicy(sizePolicy4);
+        sizePolicy1.setHeightForWidth(xMinCutting->sizePolicy().hasHeightForWidth());
+        xMinCutting->setSizePolicy(sizePolicy1);
 
         gridLayout->addWidget(xMinCutting, 0, 1, 1, 1);
 
@@ -280,8 +345,8 @@ public:
 
         xMaxCutting = new QLineEdit(cuttingTab);
         xMaxCutting->setObjectName(QStringLiteral("xMaxCutting"));
-        sizePolicy4.setHeightForWidth(xMaxCutting->sizePolicy().hasHeightForWidth());
-        xMaxCutting->setSizePolicy(sizePolicy4);
+        sizePolicy1.setHeightForWidth(xMaxCutting->sizePolicy().hasHeightForWidth());
+        xMaxCutting->setSizePolicy(sizePolicy1);
 
         gridLayout->addWidget(xMaxCutting, 0, 2, 1, 1);
 
@@ -298,15 +363,15 @@ public:
 
         yMinCutting = new QLineEdit(cuttingTab);
         yMinCutting->setObjectName(QStringLiteral("yMinCutting"));
-        sizePolicy4.setHeightForWidth(yMinCutting->sizePolicy().hasHeightForWidth());
-        yMinCutting->setSizePolicy(sizePolicy4);
+        sizePolicy1.setHeightForWidth(yMinCutting->sizePolicy().hasHeightForWidth());
+        yMinCutting->setSizePolicy(sizePolicy1);
 
         gridLayout_2->addWidget(yMinCutting, 0, 1, 1, 1);
 
         yMaxCutting = new QLineEdit(cuttingTab);
         yMaxCutting->setObjectName(QStringLiteral("yMaxCutting"));
-        sizePolicy4.setHeightForWidth(yMaxCutting->sizePolicy().hasHeightForWidth());
-        yMaxCutting->setSizePolicy(sizePolicy4);
+        sizePolicy1.setHeightForWidth(yMaxCutting->sizePolicy().hasHeightForWidth());
+        yMaxCutting->setSizePolicy(sizePolicy1);
 
         gridLayout_2->addWidget(yMaxCutting, 0, 2, 1, 1);
 
@@ -410,8 +475,8 @@ public:
 
         openglCutting = new GLWidget(cuttingTab);
         openglCutting->setObjectName(QStringLiteral("openglCutting"));
-        sizePolicy1.setHeightForWidth(openglCutting->sizePolicy().hasHeightForWidth());
-        openglCutting->setSizePolicy(sizePolicy1);
+        sizePolicy2.setHeightForWidth(openglCutting->sizePolicy().hasHeightForWidth());
+        openglCutting->setSizePolicy(sizePolicy2);
 
         horizontalLayout_4->addWidget(openglCutting);
 
@@ -426,8 +491,8 @@ public:
 
         cuttingSlider = new QSlider(cuttingTab);
         cuttingSlider->setObjectName(QStringLiteral("cuttingSlider"));
-        sizePolicy2.setHeightForWidth(cuttingSlider->sizePolicy().hasHeightForWidth());
-        cuttingSlider->setSizePolicy(sizePolicy2);
+        sizePolicy3.setHeightForWidth(cuttingSlider->sizePolicy().hasHeightForWidth());
+        cuttingSlider->setSizePolicy(sizePolicy3);
         cuttingSlider->setMinimum(1);
         cuttingSlider->setMaximum(30);
         cuttingSlider->setValue(10);
@@ -482,7 +547,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -496,6 +561,16 @@ public:
 #endif // QT_NO_WHATSTHIS
         label->setText(QApplication::translate("MainWindow", "Enter equations", nullptr));
         equationGradient->setText(QApplication::translate("MainWindow", "x*x + y*cos(x)", nullptr));
+        label_12->setText(QApplication::translate("MainWindow", "Enter range of x", nullptr));
+        xMinGradient->setText(QApplication::translate("MainWindow", "-10", nullptr));
+        xMinGradient->setPlaceholderText(QApplication::translate("MainWindow", "x min", nullptr));
+        xMaxGradient->setText(QApplication::translate("MainWindow", "10", nullptr));
+        xMaxGradient->setPlaceholderText(QApplication::translate("MainWindow", "x max", nullptr));
+        label_13->setText(QApplication::translate("MainWindow", "Enter range of y", nullptr));
+        yMinGradient->setText(QApplication::translate("MainWindow", "-10", nullptr));
+        yMinGradient->setPlaceholderText(QApplication::translate("MainWindow", "y min", nullptr));
+        yMaxGradient->setText(QApplication::translate("MainWindow", "10", nullptr));
+        yMaxGradient->setPlaceholderText(QApplication::translate("MainWindow", "y max", nullptr));
         label_2->setText(QApplication::translate("MainWindow", " Starting point (x0, y0)", nullptr));
         startX->setText(QApplication::translate("MainWindow", "0", nullptr));
         startX->setPlaceholderText(QApplication::translate("MainWindow", "x", nullptr));

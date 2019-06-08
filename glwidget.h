@@ -44,6 +44,7 @@ public:
     void setPlane(QVector3D p1, QVector3D p2, QVector3D p3);
     void addGraph(QString exp);
     void updateGraphExpression(int index, QString exp);
+    void setRange(float xMin, float xMax, float yMin, float yMax);
 
 public slots:
     void cleanup();
@@ -72,7 +73,10 @@ protected:
     QVector2D startingPoint;
     QVector<QVector3D> plane;
     QVector<Graph*> graphList;
-
+    float x_min;
+    float x_max;
+    float y_min;
+    float y_max;
 //    Expression m_expression;
 };
 
