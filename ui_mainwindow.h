@@ -75,17 +75,11 @@ public:
     QLineEdit *yMinCutting;
     QLineEdit *yMaxCutting;
     QLabel *label_3;
-    QLineEdit *p1_x;
-    QLineEdit *p1_y;
-    QLineEdit *p1_z;
-    QLabel *label_4;
-    QLineEdit *p2_x;
-    QLineEdit *p2_y;
-    QLineEdit *p2_z;
-    QLabel *label_5;
-    QLineEdit *p3_x;
-    QLineEdit *p3_y;
-    QLineEdit *p3_z;
+    QGridLayout *gridLayout_7;
+    QLineEdit *plane_b;
+    QLineEdit *plane_a;
+    QLineEdit *plane_c;
+    QLineEdit *plane_d;
     QSpacerItem *verticalSpacer_2;
     GLWidget *openglCutting;
     QVBoxLayout *verticalLayout_4;
@@ -384,90 +378,44 @@ public:
         label_3 = new QLabel(cuttingTab);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setMinimumSize(QSize(100, 0));
-        label_3->setAlignment(Qt::AlignCenter);
+        label_3->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter);
         label_3->setMargin(0);
 
         verticalLayout_7->addWidget(label_3);
 
-        p1_x = new QLineEdit(cuttingTab);
-        p1_x->setObjectName(QStringLiteral("p1_x"));
-        sizePolicy.setHeightForWidth(p1_x->sizePolicy().hasHeightForWidth());
-        p1_x->setSizePolicy(sizePolicy);
+        gridLayout_7 = new QGridLayout();
+        gridLayout_7->setSpacing(6);
+        gridLayout_7->setObjectName(QStringLiteral("gridLayout_7"));
+        plane_b = new QLineEdit(cuttingTab);
+        plane_b->setObjectName(QStringLiteral("plane_b"));
+        sizePolicy1.setHeightForWidth(plane_b->sizePolicy().hasHeightForWidth());
+        plane_b->setSizePolicy(sizePolicy1);
 
-        verticalLayout_7->addWidget(p1_x);
+        gridLayout_7->addWidget(plane_b, 0, 1, 1, 1);
 
-        p1_y = new QLineEdit(cuttingTab);
-        p1_y->setObjectName(QStringLiteral("p1_y"));
-        sizePolicy.setHeightForWidth(p1_y->sizePolicy().hasHeightForWidth());
-        p1_y->setSizePolicy(sizePolicy);
+        plane_a = new QLineEdit(cuttingTab);
+        plane_a->setObjectName(QStringLiteral("plane_a"));
+        sizePolicy1.setHeightForWidth(plane_a->sizePolicy().hasHeightForWidth());
+        plane_a->setSizePolicy(sizePolicy1);
 
-        verticalLayout_7->addWidget(p1_y);
+        gridLayout_7->addWidget(plane_a, 0, 0, 1, 1);
 
-        p1_z = new QLineEdit(cuttingTab);
-        p1_z->setObjectName(QStringLiteral("p1_z"));
-        p1_z->setEnabled(true);
-        sizePolicy.setHeightForWidth(p1_z->sizePolicy().hasHeightForWidth());
-        p1_z->setSizePolicy(sizePolicy);
+        plane_c = new QLineEdit(cuttingTab);
+        plane_c->setObjectName(QStringLiteral("plane_c"));
+        sizePolicy1.setHeightForWidth(plane_c->sizePolicy().hasHeightForWidth());
+        plane_c->setSizePolicy(sizePolicy1);
 
-        verticalLayout_7->addWidget(p1_z);
+        gridLayout_7->addWidget(plane_c, 1, 0, 1, 1);
 
-        label_4 = new QLabel(cuttingTab);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setAlignment(Qt::AlignCenter);
-        label_4->setMargin(0);
+        plane_d = new QLineEdit(cuttingTab);
+        plane_d->setObjectName(QStringLiteral("plane_d"));
+        sizePolicy1.setHeightForWidth(plane_d->sizePolicy().hasHeightForWidth());
+        plane_d->setSizePolicy(sizePolicy1);
 
-        verticalLayout_7->addWidget(label_4);
+        gridLayout_7->addWidget(plane_d, 1, 1, 1, 1);
 
-        p2_x = new QLineEdit(cuttingTab);
-        p2_x->setObjectName(QStringLiteral("p2_x"));
-        sizePolicy.setHeightForWidth(p2_x->sizePolicy().hasHeightForWidth());
-        p2_x->setSizePolicy(sizePolicy);
 
-        verticalLayout_7->addWidget(p2_x);
-
-        p2_y = new QLineEdit(cuttingTab);
-        p2_y->setObjectName(QStringLiteral("p2_y"));
-        sizePolicy.setHeightForWidth(p2_y->sizePolicy().hasHeightForWidth());
-        p2_y->setSizePolicy(sizePolicy);
-
-        verticalLayout_7->addWidget(p2_y);
-
-        p2_z = new QLineEdit(cuttingTab);
-        p2_z->setObjectName(QStringLiteral("p2_z"));
-        p2_z->setEnabled(true);
-        sizePolicy.setHeightForWidth(p2_z->sizePolicy().hasHeightForWidth());
-        p2_z->setSizePolicy(sizePolicy);
-
-        verticalLayout_7->addWidget(p2_z);
-
-        label_5 = new QLabel(cuttingTab);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setAlignment(Qt::AlignCenter);
-        label_5->setMargin(0);
-
-        verticalLayout_7->addWidget(label_5);
-
-        p3_x = new QLineEdit(cuttingTab);
-        p3_x->setObjectName(QStringLiteral("p3_x"));
-        sizePolicy.setHeightForWidth(p3_x->sizePolicy().hasHeightForWidth());
-        p3_x->setSizePolicy(sizePolicy);
-
-        verticalLayout_7->addWidget(p3_x);
-
-        p3_y = new QLineEdit(cuttingTab);
-        p3_y->setObjectName(QStringLiteral("p3_y"));
-        sizePolicy.setHeightForWidth(p3_y->sizePolicy().hasHeightForWidth());
-        p3_y->setSizePolicy(sizePolicy);
-
-        verticalLayout_7->addWidget(p3_y);
-
-        p3_z = new QLineEdit(cuttingTab);
-        p3_z->setObjectName(QStringLiteral("p3_z"));
-        p3_z->setEnabled(true);
-        sizePolicy.setHeightForWidth(p3_z->sizePolicy().hasHeightForWidth());
-        p3_z->setSizePolicy(sizePolicy);
-
-        verticalLayout_7->addWidget(p3_z);
+        verticalLayout_7->addLayout(gridLayout_7);
 
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
@@ -550,7 +498,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -582,7 +530,7 @@ public:
         label_8->setText(QApplication::translate("MainWindow", "Zoom", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(gradientTab), QApplication::translate("MainWindow", "Gradient Descent", nullptr));
         label_6->setText(QApplication::translate("MainWindow", "Enter equation and 3 points", nullptr));
-        label_10->setText(QApplication::translate("MainWindow", "Equations", nullptr));
+        label_10->setText(QApplication::translate("MainWindow", "Enter graph equations", nullptr));
         addEquation->setText(QApplication::translate("MainWindow", "Add equation", nullptr));
         popEquation->setText(QApplication::translate("MainWindow", "Pop equation", nullptr));
         xMinCutting->setText(QApplication::translate("MainWindow", "-10", nullptr));
@@ -595,27 +543,15 @@ public:
         yMinCutting->setPlaceholderText(QApplication::translate("MainWindow", "y min", nullptr));
         yMaxCutting->setText(QApplication::translate("MainWindow", "10", nullptr));
         yMaxCutting->setPlaceholderText(QApplication::translate("MainWindow", "y max", nullptr));
-        label_3->setText(QApplication::translate("MainWindow", "Point 1 (x, y, z) =", nullptr));
-        p1_x->setText(QApplication::translate("MainWindow", "-10", nullptr));
-        p1_x->setPlaceholderText(QApplication::translate("MainWindow", "x", nullptr));
-        p1_y->setText(QApplication::translate("MainWindow", "-1", nullptr));
-        p1_y->setPlaceholderText(QApplication::translate("MainWindow", "y", nullptr));
-        p1_z->setText(QApplication::translate("MainWindow", "10", nullptr));
-        p1_z->setPlaceholderText(QApplication::translate("MainWindow", "z", nullptr));
-        label_4->setText(QApplication::translate("MainWindow", "Point 2 (x, y, z) =", nullptr));
-        p2_x->setText(QApplication::translate("MainWindow", "-10", nullptr));
-        p2_x->setPlaceholderText(QApplication::translate("MainWindow", "x", nullptr));
-        p2_y->setText(QApplication::translate("MainWindow", "-1", nullptr));
-        p2_y->setPlaceholderText(QApplication::translate("MainWindow", "y", nullptr));
-        p2_z->setText(QApplication::translate("MainWindow", "-10", nullptr));
-        p2_z->setPlaceholderText(QApplication::translate("MainWindow", "z", nullptr));
-        label_5->setText(QApplication::translate("MainWindow", "Point 3 (x, y, z) =", nullptr));
-        p3_x->setText(QApplication::translate("MainWindow", "10", nullptr));
-        p3_x->setPlaceholderText(QApplication::translate("MainWindow", "x", nullptr));
-        p3_y->setText(QApplication::translate("MainWindow", "10", nullptr));
-        p3_y->setPlaceholderText(QApplication::translate("MainWindow", "y", nullptr));
-        p3_z->setText(QApplication::translate("MainWindow", "-10", nullptr));
-        p3_z->setPlaceholderText(QApplication::translate("MainWindow", "z", nullptr));
+        label_3->setText(QApplication::translate("MainWindow", "Enter plane equation ax + by + cz + d = 0", nullptr));
+        plane_b->setText(QApplication::translate("MainWindow", "0", nullptr));
+        plane_b->setPlaceholderText(QApplication::translate("MainWindow", "b", nullptr));
+        plane_a->setText(QApplication::translate("MainWindow", "-0.5", nullptr));
+        plane_a->setPlaceholderText(QApplication::translate("MainWindow", "a", nullptr));
+        plane_c->setText(QApplication::translate("MainWindow", "1", nullptr));
+        plane_c->setPlaceholderText(QApplication::translate("MainWindow", "c", nullptr));
+        plane_d->setText(QApplication::translate("MainWindow", "-3", nullptr));
+        plane_d->setPlaceholderText(QApplication::translate("MainWindow", "d", nullptr));
         label_9->setText(QApplication::translate("MainWindow", "Zoom", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(cuttingTab), QApplication::translate("MainWindow", "Cutting Plane", nullptr));
         button3D->setText(QApplication::translate("MainWindow", "3D Graph Mode", nullptr));

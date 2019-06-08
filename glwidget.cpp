@@ -49,7 +49,6 @@ GLWidget::GLWidget(QWidget *parent)
     colorList.push_back(QVector3D(1, 0, 0));
 
     // init plane
-    plane.resize(3);
     setRange(-10, 10, -10, 10);
 }
 
@@ -105,17 +104,8 @@ void GLWidget::initializeGL()
 }
 
 void GLWidget::drawGraph(Graph* graph) {
-    // calculate plane formula
-    float a, b, c, d;
     if (m_graphType == GraphType::CUTTING_PLANE) {
         drawPlane();
-        QVector3D a1 = plane[0] - plane[1];
-        QVector3D a2 = plane[1] - plane[2];
-        QVector3D n = QVector3D::crossProduct(a1, a2);
-        a = n.x();
-        b = n.y();
-        c = n.z();
-        d = -a*plane[1].x() - b*plane[1].y() - c*plane[1].z();
     }
 
     float xMax = x_max, xMin = x_min;
@@ -151,7 +141,9 @@ void GLWidget::drawGraph(Graph* graph) {
                 for (float x1 = x; x1 <= x + bigStep; x1 += step){
                     for (float z1 = z; z1 <= z + bigStep; z1 += step){
                         if (m_graphType == GraphType::CUTTING_PLANE) {
-                            if (a * x1 + b * graph->formula(x1, z1) + c * z1 + d < 0)
+                            float a, b, c, d;
+                            a = plane[0]; b = plane[1]; c = plane[2]; d = plane[3];
+                            if (a*x1 + b*z1 + c*graph->formula(x1, z1) + d < 0)
                                 glColor3f(0, 1, 0);
                             else
                                 glColor3f(1, 0, 0);
@@ -261,27 +253,33 @@ void GLWidget::setStartingPoint(QVector2D start)
     }
 }
 
-void GLWidget::setPlane(QVector3D p1, QVector3D p2, QVector3D p3)
+void GLWidget::setPlane(float a, float b, float c, float d)
 {
-    if (m_graphType == GraphType::CUTTING_PLANE) {
-        plane[0] = p1;
-        plane[1] = p2;
-        plane[2] = p3;
-    }
+    plane[0] = a;
+    plane[1] = b;
+    plane[2] = c;
+    plane[3] = d;
 }
 
 void GLWidget::drawPlane()
 {
+    float a, b, c, d;
+    // a*x + b*y + c*z + d = 0
+    // z = (-d - a*x - b*y)/c    if c != 0
+    a = plane[0];
+    b = plane[1];
+    c = plane[2];
+    d = plane[3];
+
     glBegin(GL_QUADS);
         // draw 3 points of plane
         glColor3f(0, 0, 1);
-        for (int i = 0; i < 3; i++)
-            glVertex3f(plane[i].x(), plane[i].y(), plane[i].z());
-
-        // calculate 4th point and draw it
-        QVector3D middle = (plane[0] + plane[2])/2;
-        QVector3D p = middle * 2 - plane[1];
-        glVertex3f(p.x(), p.y(), p.z());
+        if (c != 0) {
+            glVertex3f(-m_zoom, -(d + a*-m_zoom + b*-m_zoom)/c, -m_zoom);
+            glVertex3f(-m_zoom, -(d + a*-m_zoom + b*m_zoom)/c, m_zoom);
+            glVertex3f(m_zoom, -(d + a*m_zoom + b*m_zoom)/c, m_zoom);
+            glVertex3f(m_zoom, -(d + a*m_zoom + b*-m_zoom)/c, -m_zoom);
+        }
     glEnd();
 }
 

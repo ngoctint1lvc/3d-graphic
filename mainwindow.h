@@ -42,7 +42,6 @@ private:
     QString expressionGradient;
     QVector2D start; // starting point for gradient
     QVector<QLineEdit*>expressionCuttingList;
-    QVector3D point1, point2, point3;  // 3 points of cutting plane
 };
 
 #endif // MAINWINDOW_H

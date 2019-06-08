@@ -36,18 +36,6 @@ void MainWindow::updateInput() {
     start.setY(ui->startY->text().toFloat());
 
     // cutting plane
-    point1.setX(ui->p1_x->text().toFloat());
-    point1.setY(ui->p1_y->text().toFloat());
-    point1.setZ(ui->p1_z->text().toFloat());
-
-    point2.setX(ui->p2_x->text().toFloat());
-    point2.setY(ui->p2_y->text().toFloat());
-    point2.setZ(ui->p2_z->text().toFloat());
-
-    point3.setX(ui->p3_x->text().toFloat());
-    point3.setY(ui->p3_y->text().toFloat());
-    point3.setZ(ui->p3_z->text().toFloat());
-
     float xMin = ui->xMinGradient->text().toFloat();
     float xMax = ui->xMaxGradient->text().toFloat();
     float yMin = ui->yMinGradient->text().toFloat();
@@ -75,10 +63,13 @@ void MainWindow::on_button3D_clicked()
     else {
         // cutting plane tab
         ui->statusBar->showMessage("cutting plane tab active", 1000);
-        ui->openglCutting->setPlane(point1, point2, point3);
+        float a, b, c, d;
+        a = ui->plane_a->text().toFloat();
+        b = ui->plane_b->text().toFloat();
+        c = ui->plane_c->text().toFloat();
+        d = ui->plane_d->text().toFloat();
+        ui->openglCutting->setPlane(a, b, c, d);
 
-        // this shit not work???
-        std::cout << "expressionCuttingList.length = " << expressionCuttingList.length() << std::endl;
         for (int i = 0; i < expressionCuttingList.length(); i++) {
             ui->openglCutting->updateGraphExpression(i, expressionCuttingList[i]->text());
         }

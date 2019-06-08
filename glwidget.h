@@ -41,7 +41,7 @@ public:
     void setZoom(int value) { m_zoom = value; update(); }
     void setGraphType(GraphType type) {m_graphType = type; update();}
     void setStartingPoint(QVector2D start);
-    void setPlane(QVector3D p1, QVector3D p2, QVector3D p3);
+    void setPlane(float a, float b, float c, float d);
     void addGraph(QString exp);
     void updateGraphExpression(int index, QString exp);
     void popGraph();
@@ -72,7 +72,7 @@ protected:
     QPoint m_lastPos;
     QVector<QVector3D> colorList;  // for contour line mode
     QVector2D startingPoint;
-    QVector<QVector3D> plane;
+    float plane[4];
     QVector<Graph*> graphList;
     float x_min;
     float x_max;
