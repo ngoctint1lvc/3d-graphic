@@ -2,7 +2,6 @@
 #define EXPRESSION_H
 
 #include <QString>
-#include <QJSEngine>
 #include "exprtk.hpp"
 
 class Expression

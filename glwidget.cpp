@@ -99,7 +99,7 @@ void GLWidget::initializeGL()
     initializeOpenGLFunctions();
 
     glEnable(GL_DEPTH_TEST);
-    glClearColor(0.0, 0.0, 0.0, 0.0);
+    glClearColor(0.5, 0.5, 0.5, 1);
     glClearDepth(1);
 }
 
@@ -111,7 +111,8 @@ void GLWidget::drawGraph(Graph* graph) {
     float xMax = x_max, xMin = x_min;
     float zMax = y_max, zMin = y_min;
     float bigStep = qMax<float>(qMin<float>((xMax - xMin)/20.0, (zMax - zMin)/20.0), 0.5);
-    float step = qMax<float>(0.01, bigStep/10.0);
+    float step = (1 - m_zoom/100.0)*0.1 + (m_zoom/100.0)*0.5*bigStep;
+    std::cout << "m_zoom = " << m_zoom << " step = " << step << std::endl;
     for (float x = xMin; x <= xMax; x += bigStep){
         for (float z = zMin; z <= zMax; z += bigStep){
             // draw mesh
@@ -140,18 +141,44 @@ void GLWidget::drawGraph(Graph* graph) {
             glBegin(GL_QUADS);
                 for (float x1 = x; x1 <= x + bigStep; x1 += step){
                     for (float z1 = z; z1 <= z + bigStep; z1 += step){
+                        float colorTop[3] = {1, 0, 0};
+                        float colorBottom[3] = {0, 1, 0};
+                        float a, b, c, d;
+                        a = plane[0]; b = plane[1]; c = plane[2]; d = plane[3];
+
                         if (m_graphType == GraphType::CUTTING_PLANE) {
-                            float a, b, c, d;
-                            a = plane[0]; b = plane[1]; c = plane[2]; d = plane[3];
-                            if (a*x1 + b*z1 + c*graph->formula(x1, z1) + d < 0)
-                                glColor3f(0, 1, 0);
-                            else
-                                glColor3f(1, 0, 0);
+                            int flag = 0;
+                            flag += (a*x1 + b*z1 + c*graph->formula(x1, z1) + d < 0)? 0: 1;
+                            flag += (a*x1 + b*(z1 + step) + c*graph->formula(x1, z1 + step) + d < 0)? 0: 1;
+                            flag += (a*(x1 + step) + b*(z1 + step) + c*graph->formula(x1 + step, z1 + step) + d < 0)? 0: 1;
+                            flag += (a*(x1 + step) + b*z1 + c*graph->formula(x1 + step, z1) + d < 0)? 0: 1;
+
+                            // flag = 0 or 4 => not need to smooth
+                            if (flag == 0) {
+                                glColor3fv(colorBottom);
+                            }
+                            else if (flag == 4) {
+                                glColor3fv(colorTop);
+                            }
+                            else {
+                                // need to smooth
+                                float smallStep = 0.005;
+                                for (float x2 = x1; x2 <= x1 + step; x2 += smallStep) {
+                                    for (float z2 = z1; z2 <= z1 + step; z2 += smallStep) {
+                                        if (a*x2 + b*z2 + c*graph->formula(x2, z2) + d < 0)
+                                            glColor3fv(colorBottom);
+                                        else
+                                            glColor3fv(colorTop);
+                                        glVertex3f(x2, graph->formula(x2, z2), z2);
+                                        glVertex3f(x2, graph->formula(x2, z2 + smallStep), z2 + smallStep);
+                                        glVertex3f(x2 + smallStep, graph->formula(x2 + smallStep, z2 + smallStep), z2 + smallStep);
+                                        glVertex3f(x2 + smallStep, graph->formula(x2 + smallStep, z2), z2);
+                                    }
+                                }
+                                continue;
+                            }
                         }
                         else {
-//                            QVector3D color;
-//                            getColor(graph->formula(x1, z1), &color);
-//                            glColor3f(color.x(), color.y(), color.z());
                             glColor3f(0, 1, 0);
                         }
 
@@ -274,7 +301,7 @@ void GLWidget::drawPlane()
 
     glBegin(GL_QUADS);
         // draw 3 points of plane
-        glColor3f(0, 0, 1);
+        glColor3f(0, 1, 0.5);
         if (c != 0) {
             glVertex3f(-m_zoom, -(d + a*-m_zoom + b*-m_zoom)/c, -m_zoom);
             glVertex3f(-m_zoom, -(d + a*-m_zoom + b*m_zoom)/c, m_zoom);
@@ -293,7 +320,7 @@ void GLWidget::drawGradientDescent(Graph* graph)
     int step = 5000;
 
     if (m_mode == GraphMode::GRAPHIC_3D)
-        glLineWidth(qMax<float>(20/m_zoom, 3));
+        glLineWidth(3);
     else
         glLineWidth(2);
 
